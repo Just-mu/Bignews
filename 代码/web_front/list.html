@@ -10,13 +10,16 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.pagination.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="js/jquery.pagination.min.js"></script>
+    <!-- <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script> -->
+    <script src="./js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery.pagination.min.js"></script>
+    <script src="./js/template-web.js"></script>
+
 </head>
 
 <body>
     <div class="header">
-        <a href="index.html" class="logo fl"><img src="images/logo.png" alt="logo"></a>
+        <a href="#" class="logo fl"><img src="images/logo.png" alt="logo"></a>
         <div class="search_form fl">
             <input type="text" class="search_txt" placeholder="黑洞照片">
             <button class="search_btn"><i class="fa fa-search"></i></button>
@@ -33,11 +36,11 @@
                 <a href="javascript:;" class="level_one"><i class="fa fa-list-ul"></i>全部分类</a>
                 <ul class="level_two">
                     <li class="up"></li>
-                    <!-- 分类 -->
+                    <!-- nav -->
                 </ul>
             </div>
             <ul class="left_menu fl">
-                <!-- 分类 -->
+                <!-- nav -->
             </ul>
             <ul class="right_menu fr">
                 <li><a href="#">科技专题</a></li>
@@ -50,14 +53,23 @@
         <div class="left_con setfr">
 
             <div class="list_title">
-                <h3></h3>
+                <h3>科 技</h3>
             </div>
-
-            <div id="neirong">
-                <!-- 这里放列表文章数据 -->
-            </div>
+            <div id="neirong"></div>
+            <!-- <div class="common_news_list"> -->
+            <!-- <a href="#" class="list_pic"><img src="images/pic09.jpg" alt=""></a>
+                <h4><a href="#">亚马逊金融试水中国？背后却是和华尔街的“金融战争” </a></h4>
+                <p>亚马逊抛弃了中国的买家们，却难以割舍庞大的卖家市场，有消息指出亚马逊中国将针对中国庞大的卖家群体推出一项贷款推荐计划。在连续对印度、墨西哥等新兴市场大力推广线上支付服务后，亚马逊金融试水进军中国市场的信号终于被放出。
+                </p>
+                <div class="new_info">
+                    <span>标签：财经&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="fa fa-eye"></i>&nbsp;阅读( 5
+                        )&nbsp;&nbsp;&nbsp;<i class="fa fa-commenting"></i>&nbsp;评论( 10 )</span>
+                    <b>发布于 2018-08-30 12:18:58</b>
+                </div> -->
+            <!-- </div> -->
 
             <div id="pagination" class="page"></div>
+
 
         </div>
         <div class="right_con setfl">
@@ -131,122 +143,186 @@
             <span>|</span>
             <a href="#">招聘人才</a>
             <span>|</span>
-            <a href="#">友情链接</a>		
+            <a href="#">友情链接</a>
         </div>
-        <p>CopyRight © 2019 深圳大事件信息技术股份有限公司   All Rights Reserved</p>
-        <p>电话：0755-****888    粤ICP备*******8号</p>
+        <p>CopyRight © 2019 深圳大事件信息技术股份有限公司 All Rights Reserved</p>
+        <p>电话：0755-****888 粤ICP备*******8号</p>
     </div>
 
-    <script src="./js/template-web.js"></script>
+</body>
 
-    <script id="list" type="text/html">
-        {{each arr}}
-        <div class="common_news_list">
-            <a href="article.html?id={{$value.id}}" class="list_pic"><img src="{{$value.cover}}" alt=""></a>
-            <h4><a href="article.html?id={{$value.id}}">{{$value.title}}</a></h4>
-            <p>
-                {{$value.intro}}
-            </p>
+<!-- 最新资讯 -->
+<script id="news" type="text/html">
+    {{each arr}}
+    <div class="common_news_list">
+        <a href="article.html?id={{$value.id}}" class="list_pic"><img src={{$value.cover}} alt=""></a>
+        <h4>
+            <a href="article.html?id={{$value.id}}">{{$value.title}} </a>
+        </h4>
+        <p>{{$value.intro}}</p>
+        <div class="new_info">
+            <span>
+                标签：{{$value.category}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="fa fa-eye"></i>&nbsp;阅读( {{$value.read}} )&nbsp;&nbsp;&nbsp;<i class="fa fa-commenting"></i>&nbsp;评论( {{$value.comments}} )
+            </span><b>发布于 {{$value.date}}</b>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+<!-- 搜索模板 -->
+<script id="search_muban" type="text/html">
+    {{each arr}}
+    <div class="common_news_list">
+            <a href="article.html?id={{$value.id}}" class="list_pic"><img src={{$value.cover}} alt=""></a>
+            <h4>
+                <a href="article.html?id={{$value.id}}">{{$value.title}} </a>
+            </h4>
+            <p>{{$value.intro}}</p>
             <div class="new_info">
                 <span>
-                    标签：{{$value.category}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="fa fa-eye"></i>&nbsp;
-                    阅读( {{$value.read}} )&nbsp;&nbsp;&nbsp;<i class="fa fa-commenting"></i>&nbsp;
-                    评论( {{$value.comments}} )
-                </span>
-                <b>发布于 {{$value.date}}</b>
+                    标签：{{$value.category}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="fa fa-eye"></i>&nbsp;阅读( {{$value.read}} )&nbsp;&nbsp;&nbsp;<i class="fa fa-commenting"></i>&nbsp;评论( {{$value.comments}} )
+                </span><b>发布于 {{$value.date}}</b>
             </div>
         </div>
-        {{/each}}
-    </script>
-
-    <!-- 分类的模板 -->
-    <script id="fenlei" type="text/html">
-        {{each arr}}
-        <li><a href="list.html?id={{$value.id}}">{{$value.name}}</a></li>
-        {{/each}}
-    </script>
-
-    <script>
-        /************************************************************
-        ********************** 获取当前分类的文章 **********************
-        ************************************************************/
-        /* var id = location.search; // id = ?id=2
-        id = id.replace(/\D/g, ''); // id = 2 */
-        var id = location.search.replace(/\D/g, '');
-
-        // 设置获取数据的参数
-        var params = {
-            type: id,
-            page: 1,
-            key: '' // key表示搜索关键字
-        }
-
-        ////////////////////// 模糊搜索开始 //////////////////////
-
-        $('.search_btn').click(function (e) {
-            e.preventDefault();
-            // 获取输入框的搜索关键字
-            var keywords = $('.search_txt').val();
-            params.type = ''; // 搜索之后，如果不考虑分类了，这里让分类id为空
-            params.page = 1; // 搜索的结果也应该从第1页开始显示
-            params.key = keywords; // 搜索的关键字
-            loadData();
-        });
-
-        ////////////////////// 模糊搜索结束 //////////////////////
-
-        ///////////////////// 下面是实现分页的函数 /////////////////////////
-        function page (c, t) {
-            $("#pagination").pagination({
-                currentPage: c, // 表示开始显示第几页
-                totalPage: t, // 表示总页数
-                callback: function(current) {
-                    // alert('ok!');
-                    // alert(current); // 表示当前被点击的页码
-                    // 改变 params.page 的值
-                    params.page = current;
-                    // 重写调用接口，获取数据，从新将数据渲染到页面中
-                    loadData();
-                }
-            });
-        }
-        /////////////////////// 分页函数结束 ///////////////////////
-
-        function loadData () {
-            $.get('http://localhost:8080/index/search', params, function (res) {
-                console.log(res);
-                var str = template('list', {
-                    arr: res.data.data
-                });
-                // 把 str 放到 类名为 list_title 的后面
-                // $('.list_title').after(str);
-                $('#neirong').html(str);
-                // 更换分类名称
-                if (params.type == '') {
-                    $('.list_title h3').text('搜索“' + params.key + '”的结果：');
-                } else {
-                    $('.list_title h3').text(res.data.data[0].category);
-                }
-                // 调用page函数，显示页码
-                page(res.page, res.pages);
-            }, 'json');
-        }
-        loadData();
+    {{/each}}
+</script>
 
 
-        /********************************************************************
-        ******************************* 完成文章分类获取 *************************************
-        ********************************************************************/
-       $.get('http://localhost:8080/index/category', function (res) {
-            var str = template('fenlei', {
+<!-- 文章类别模板
+<script id="text_muban" type="text/html">
+    {{each arr}}
+    <div class="common_news_list">
+            <a href="article.html?id={{$value.id}}" class="list_pic"><img src={{$value.cover}} alt=""></a>
+            <h4>
+                <a href="article.html?id={{$value.id}}">{{$value.title}} </a>
+            </h4>
+            <p>{{$value.intro}}</p>
+            <div class="new_info">
+                <span>
+                    标签：{{$value.category}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<i class="fa fa-eye"></i>&nbsp;阅读( {{$value.read}} )&nbsp;&nbsp;&nbsp;<i class="fa fa-commenting"></i>&nbsp;评论( {{$value.comments}} )
+                </span><b>发布于 {{$value.date}}</b>
+            </div>
+        </div>
+    {{/each}}
+</script> -->
+
+<script id="nav" type="text/html">
+    {{each arr}}
+        <li ><a class="type" name={{$value.id}} href="list.html?id={{$value.id}}">{{$value.name}}</a></li>
+    {{/each}}
+</script>
+
+<script>
+    //index
+    $('.logo').click(function (e) {
+        e.preventDefault();
+        location.href = 'index.html'
+    })
+    //显示内容
+    urlHeader = 'http://localhost:8080';
+    console.log(urlHeader);
+
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: urlHeader + '/index/latest',
+        success: function (res) {
+            var str = template('news', {
                 arr: res.data
-            });
-            // 把 str 放到类名为 level_two 的ul中，必须使用 append方法
+            })
+            $('#neirong').html(str)
+            console.log(res);
+
+        }
+    })
+    //文章类型
+    var id = location.search.substr(4);
+    var type = id;
+    //搜索功能search_txt
+    function search() {
+        var searchVal = $('.search_txt').val();
+        $.ajax({
+            type: 'get',
+            url: urlHeader + '/index/search',
+            data: {
+                key: searchVal,
+                type: type,
+                page: '',
+                perpage: '',
+            },
+            dataType: 'json',
+            success: function (res) {
+
+                console.log(res);
+                $('.common_news_list').remove();
+                var str = template('search_muban', {
+                    arr: res.data.data
+                })
+                $('.list_title').after(str)
+                //当前页和总页数
+                $("#pagination").pagination({
+                    currentPage: res.page,
+                    totalPage: res.pages,
+                    callback: function (current) {
+                        // alert(current);
+                        $.get(urlHeader + '/index/search', { key: searchVal, page: current }, function (res) {
+                            $('.common_news_list').remove();
+                            var str = template('search_muban', {
+                                arr: res.data.data
+                            })
+                            $('.list_title').after(str)
+                        });
+                    }
+                });
+            }
+        })
+    }
+    $('.search_txt').val(decodeURI(location.search.substr(11)));
+    search();
+    $('.search_btn').click(function () {
+
+        search();
+    })
+
+    //
+    $(document).keydown(function (e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            var searchVal = $('.search_txt').val();
+            location.href = 'list.html?searchVal=' + searchVal;
+            $('.search_txt').val('')
+        }
+    })
+
+
+
+    //nav 
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: urlHeader + '/index/category',
+        success: function (res) {
+            var str = template('nav', {
+                arr: res.data
+            })
+            $('.left_menu').eq(0).append(str);
             $('.level_two').append(str);
-            // 把 str 放到类名为 left_menu 的ul中
-            $('.left_menu').html(str);
-       }, 'json');
-    </script>
-</body>
+        }
+    })
+
+    // //id分类 文章显示
+    // id = location.search.substr(4)
+    // console.log(id);
+    // $.get('http://localhost:8080/index/search', { type: id }, function (res) {
+    //     // $('.common_news_list').remove();
+    //     var str = template('text_muban', {
+    //         arr: res.data.data
+    //     }, 'json')
+    //     $('#neirong').html(str)
+    //     // console.log(123);
+    //     console.log(res);
+
+    // })
+</script>
 
 </html>

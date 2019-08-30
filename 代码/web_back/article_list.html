@@ -54,66 +54,91 @@
                     </tr>
                 </thead>
                 <tbody>
-
-                    <!-- 这里放文章列表 -->
-
+                    <!-- 文章数据 -->
                 </tbody>
             </table>
 
             <div class="row text-center">
-            <ul class="pagination pagination-sm">
-                <li class="page-item first disabled"><a href="#" class="page-link">首页</a></li>
-                <li class="page-item prev disabled"><a href="#" class="page-link">上一页</a></li>
-                <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                <li class="page-item"><a href="#" class="page-link">3</a></li>
-                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                <li class="page-item"><a href="#" class="page-link">6</a></li>
-                <li class="page-item"><a href="#" class="page-link">7</a></li>
-                <li class="page-item next"><a href="#" class="page-link">下一页</a></li>
-                <li class="page-item last"><a href="#" class="page-link">尾页</a></li>
-            </ul>
-        </div>
+                <ul class="pagination pagination-sm">
+                    <li class="page-item first disabled"><a href="#" class="page-link">首页</a></li>
+                    <li class="page-item prev disabled"><a href="#" class="page-link">上一页</a></li>
+                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                    <li class="page-item"><a href="#" class="page-link">6</a></li>
+                    <li class="page-item"><a href="#" class="page-link">7</a></li>
+                    <li class="page-item next"><a href="#" class="page-link">下一页</a></li>
+                    <li class="page-item last"><a href="#" class="page-link">尾页</a></li>
+                </ul>
+            </div>
 
         </div>
     </div>
 
     <script>
         // 设置左侧菜单
-        $('#release_btn').click(function(){
-            window.parent.setMenu(1,1);
+        $('#release_btn').click(function () {
+            window.parent.setMenu(1, 1);
         })
     </script>
+    <script src="./js/jquery-1.12.4.min.js"></script>
+    <script src="../web_front/js/template-web.js"></script>
 
-    <script src="./js/template-web.js"></script>
-
-    <!-- 文章列表的模板 -->
-    <script id="moban" type="text/html">
+    <!-- 文章模板 -->
+    <script id="muban" type="text/html">
         {{each arr}}
-        <tr>                      
+        <tr>
             <td>{{$value.title}}</td>
             <td>{{$value.author}}</td>
             <td>{{$value.category}}</td>
             <td class="text-center">{{$value.date}}</td>
             <td class="text-center">{{$value.state}}</td>
             <td class="text-center">
-                <a href="article_edit.html?id={{$value.id}}&categoryId={{$value.categoryId}}" class="btn btn-default btn-xs">编辑</a>
-                <a href="javascript:deleteTr( 1005 );" class="btn btn-danger btn-xs">删除</a>
+                <a href="javascript:;" class="btn btn-default btn-xs haha"   bianji={{$value.id}} categoryId={{$value.categoryId}}>编辑</a>
+                <a href="javascript:;" class="btn btn-danger btn-xs" id={{$value.id}}>删除</a>
             </td>
         </tr>
         {{/each}}
     </script>
     <script>
-        /***********************************************************/
-        /*********************** 文章列表 ************************/
-        /***********************************************************/
-        $.get('http://localhost:8080/admin/article/query', function (res) {
-            var str = template('moban', {
+        $.get('http://localhost:8080/admin/article/query', { perpage: 20 }, function (res) {
+            // console.log(res);
+            var str = template('muban', {
                 arr: res.data.data
-            });
-            $('tbody').html(str);
-        }, 'json');
+            }, 'json')
+            $('tbody').html(str)
+        })
+
+
+        //跳转页面
+
+        $('body').on('click', '.haha', function (e) {
+            e.preventDefault();
+            var id = $('.haha').attr('bianji')
+            console.log(id);
+            var categoryId = $('.haha').attr('categoryId')
+            location.href = "article_edit.html?id=" + id + "&categoryId=" + categoryId
+        })
+
+
+
+        //删除
+        $('body').on('click', '.btn-danger', function (e) {
+            e.preventDefault();
+            // console.log($(this).attr('id'));
+
+            $.ajax({
+                type: 'get',
+                url: 'http://localhost:8080/admin/article/delete',
+                data: { id: $(this).attr('id') },
+                success: function (res) {
+                    alert(res.msg)
+                    location.reload();
+                }
+            })
+        })
     </script>
 </body>
 
